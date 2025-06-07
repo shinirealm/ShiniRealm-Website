@@ -1,4 +1,4 @@
-<!-- tradecalculator.html - UPDATED -->
+<!-- tradecalculator.html - UPDATED (UI & Navigation Fix) -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,29 +7,7 @@
     <title>ShiniRealm - Trade Calculator</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- ADDED type="module" for the inline script to ensure window.firebase is available -->
-    <script type="module">
-        // CLIENT-SIDE REDIRECTION SCRIPT FOR AUTHENTICATION
-        const currentPage = window.location.pathname.split('/').pop();
-        const restrictedPages = [
-            'index.html', 'bloxfruits.html', 'growagarden.html',
-            'giveaways.html', 'bulletins.html', 'tradecalculator.html',
-            'privateservers.html', 'claninfo.html', 'realmcoins.html',
-            'myprofile.html', 'chat.html'
-        ];
-        if (restrictedPages.includes(currentPage)) {
-            setTimeout(() => {
-                const auth = window.firebase && window.firebase.auth ? window.firebase.auth : null;
-                const user = auth ? auth.currentUser : null;
-                if (!user || !user.emailVerified) {
-                    if (currentPage !== 'login.html') {
-                        console.log('Redirecting to login: User not authenticated or email not verified.');
-                        window.location.href = 'login.html?redirect=' + encodeURIComponent(currentPage);
-                    }
-                }
-            }, 500);
-        }
-    </script>
+    <!-- REMOVED CLIENT-SIDE REDIRECTION SCRIPT FROM HEAD -->
 </head>
 <body>
     <header class="main-header">
@@ -47,6 +25,8 @@
                     <li><a href="tradecalculator.html">Trade Calculator</a></li>
                     <li><a href="privateservers.html">Private Servers</a></li>
                     <li><a href="claninfo.html">Shinigami Realm Info</a></li>
+                    <!-- NEW: My Profile as a main navigation link -->
+                    <li><a href="myprofile.html">My Profile</a></li>
                 </ul>
             </nav>
             <!-- Header Right Section: Search, User Icons, Realm Coins, Login -->
@@ -56,10 +36,7 @@
                     <i class="fas fa-search search-icon"></i>
                 </div>
                 <div class="header-icons">
-                    <a href="myprofile.html" class="profile-link" id="headerProfileLink" style="display: none;">
-                        <img src="https://placehold.co/35x35/007bff/ffffff?text=U" alt="Profile" class="profile-picture">
-                        <span class="display-name" id="headerDisplayName">Guest</span>
-                    </a>
+                    <!-- Notification and Chat icons are now always visible here -->
                     <i class="fas fa-bell header-icon"></i>
                     <a href="chat.html"><i class="fas fa-comments header-icon"></i></a>
                 </div>
@@ -156,233 +133,6 @@
         </div>
     </footer>
 
-    <!-- Item Selection Modal (hidden by default) -->
-    <div class="modal-overlay" id="itemSelectionModal">
-        <div class="item-selection-modal">
-            <button class="modal-close-button" id="modalCloseButton">&times;</button>
-            <h2 class="modal-title">Add Items to calculate offer value</h2>
-
-            <div class="modal-search-bar">
-                <input type="text" placeholder="Search...">
-                <i class="fas fa-search search-icon"></i>
-            </div>
-
-            <div class="item-category-tabs">
-                <button class="item-category-button active" data-category="physical">Physical</button>
-                <button class="item-category-button" data-category="permanent">Permanent</button>
-                <button class="item-category-button" data-category="gamepass">Gamepass</button>
-                <button class="item-category-button" data-category="scroll">Scroll</button>
-            </div>
-
-            <div class="item-list-container">
-                <div class="item-list-grid">
-                    <!-- Example Trade Item Cards (Blox Fruits) -->
-                    <!-- Physical Fruits -->
-                    <div class="trade-item-card" data-item-id="rocket" data-category="physical">
-                        <div class="item-icon" style="background-color: #888;">
-                            <i class="fas fa-rocket"></i>
-                        </div>
-                        <div class="item-name">Rocket</div>
-                        <div class="item-price">Price: <span>50%</span></div>
-                        <div class="item-value">Value: <span>V5,000</span></div>
-                    </div>
-                    <div class="trade-item-card" data-item-id="spin" data-category="physical">
-                        <div class="item-icon" style="background-color: #f0f;">
-                            <i class="fas fa-spinner"></i>
-                        </div>
-                        <div class="item-name">Spin</div>
-                        <div class="item-price">Price: <span>75%</span></div>
-                        <div class="item-value">Value: <span>M:7,500</span></div>
-                    </div>
-                    <div class="trade-item-card" data-item-id="chop" data-category="physical">
-                        <div class="item-icon" style="background-color: #333;">
-                            <i class="fas fa-cut"></i>
-                        </div>
-                        <div class="item-name">Chop</div>
-                        <div class="item-price">Price: <span>100%</span></div>
-                        <div class="item-value">Value: <span>V:10,000</span></div>
-                    </div>
-                    <div class="trade-item-card" data-item-id="spring" data-category="physical">
-                        <div class="item-icon" style="background-color: #0f0;">
-                            <i class="fas fa-leaf"></i>
-                        </div>
-                        <div class="item-name">Spring</div>
-                        <div class="item-price">Price: <span>180%</span></div>
-                        <div class="item-value">Value: <span>V:30,000</span></div>
-                    </div>
-                    <div class="trade-item-card" data-item-id="bomb" data-category="physical">
-                        <div class="item-icon" style="background-color: #f00;">
-                            <i class="fas fa-bomb"></i>
-                        </div>
-                        <div class="item-name">Bomb</div>
-                        <div class="item-price">Price: <span>220%</span></div>
-                        <div class="item-value">Value: <span>V:60,000</span></div>
-                    </div>
-                    <div class="trade-item-card" data-item-id="smoke" data-category="physical">
-                        <div class="item-icon" style="background-color: #aaa;">
-                            <i class="fas fa-cloud"></i>
-                        </div>
-                        <div class="item-name">Smoke</div>
-                        <div class="item-price">Price: <span>250%</span></div>
-                        <div class="item-value">Value: <span>V:30,000</span></div>
-                    </div>
-                    <div class="trade-item-card" data-item-id="spike" data-category="physical">
-                        <div class="item-icon" style="background-color: #9370DB;">
-                            <i class="fas fa-hat-wizard"></i>
-                        </div>
-                        <div class="item-name">Spike</div>
-                        <div class="item-price">Price: <span>300%</span></div>
-                        <div class="item-value">Value: <span>V:180,000</span></div>
-                    </div>
-                    <div class="trade-item-card" data-item-id="flame" data-category="physical">
-                        <div class="item-icon" style="background-color: #FF8C00;">
-                            <i class="fas fa-fire"></i>
-                        </div>
-                        <div class="item-name">Flame</div>
-                        <div class="item-price">Price: <span>550%</span></div>
-                        <div class="item-value">Value: <span>V:250,000</span></div>
-                    </div>
-                    <div class="trade-item-card" data-item-id="ice" data-category="physical">
-                        <div class="item-icon" style="background-color: #00BFFF;">
-                            <i class="fas fa-snowflake"></i>
-                        </div>
-                        <div class="item-name">Ice</div>
-                        <div class="item-price">Price: <span>750%</span></div>
-                        <div class="item-value">Value: <span>V:550,000</span></div>
-                    </div>
-                    <div class="trade-item-card" data-item-id="sand" data-category="physical">
-                        <div class="item-icon" style="background-color: #DAA520;">
-                            <i class="fas fa-hourglass-half"></i>
-                        </div>
-                        <div class="item-name">Sand</div>
-                        <div class="item-price">Price: <span>850%</span></div>
-                        <div class="item-value">Value: <span>V:430,000</span></div>
-                    </div>
-                    <div class="trade-item-card" data-item-id="dark" data-category="physical">
-                        <div class="item-icon" style="background-color: #36454F;">
-                            <i class="fas fa-moon"></i>
-                        </div>
-                        <div class="item-name">Dark</div>
-                        <div class="item-price">Price: <span>950%</span></div>
-                        <div class="item-value">Value: <span>V:600,000</span></div>
-                    </div>
-                    <div class="trade-item-card" data-item-id="eagle" data-category="physical">
-                        <div class="item-icon" style="background-color: #2F4F4F;">
-                            <i class="fas fa-feather-alt"></i>
-                        </div>
-                        <div class="item-name">Eagle</div>
-                        <div class="item-price">Price: <span>975%</span></div>
-                        <div class="item-value">Value: <span>V:800,000</span></div>
-                    </div>
-                    <div class="trade-item-card" data-item-id="diamond" data-category="physical">
-                        <div class="item-icon" style="background-color: #b9f2ff;">
-                            <i class="fas fa-gem"></i>
-                        </div>
-                        <div class="item-name">Diamond</div>
-                        <div class="item-price">Price: <span>10k</span></div>
-                        <div class="item-value">Value: <span>V:1,800,000</span></div>
-                    </div>
-                    <div class="trade-item-card" data-item-id="light" data-category="physical">
-                        <div class="item-icon" style="background-color: #FFFF00;">
-                            <i class="fas fa-lightbulb"></i>
-                        </div>
-                        <div class="item-name">Light</div>
-                        <div class="item-price">Price: <span>1.3k</span></div>
-                        <div class="item-value">Value: <span>V:1,100,000</span></div>
-                    </div>
-                    <div class="trade-item-card" data-item-id="rubber" data-category="physical">
-                        <div class="item-icon" style="background-color: #FF00FF;">
-                            <i class="fas fa-circle"></i>
-                        </div>
-                        <div class="item-name">Rubber</div>
-                        <div class="item-price">Price: <span>1.2k</span></div>
-                        <div class="item-value">Value: <span>V:700,000</span></div>
-                    </div>
-                    <div class="trade-item-card" data-item-id="ghost" data-category="physical">
-                        <div class="item-icon" style="background-color: #F8F8FF;">
-                            <i class="fas fa-ghost"></i>
-                        </div>
-                        <div class="item-name">Ghost</div>
-                        <div class="item-price">Price: <span>1.3k</span></div>
-                        <div class="item-value">Value: <span>V:800,000</span></div>
-                    </div>
-                    <div class="trade-item-card" data-item-id="magma" data-category="physical">
-                        <div class="item-icon" style="background-color: #FF4500;">
-                            <i class="fas fa-fire-alt"></i>
-                        </div>
-                        <div class="item-name">Magma</div>
-                        <div class="item-price">Price: <span>1.3k</span></div>
-                        <div class="item-value">Value: <span>V:1,000,000</span></div>
-                    </div>
-                    <div class="trade-item-card" data-item-id="quake" data-category="physical">
-                        <div class="item-icon" style="background-color: #6A0DAD;">
-                            <i class="fas fa-earth"></i>
-                        </div>
-                        <div class="item-name">Quake</div>
-                        <div class="item-price">Price: <span>1.5k</span></div>
-                        <div class="item-value">Value: <span>V:1,300,000</span></div>
-                    </div>
-                    <div class="trade-item-card" data-item-id="buddha" data-category="physical">
-                        <div class="item-icon" style="background-color: #D2B48C;">
-                            <i class="fas fa-buddha"></i>
-                        </div>
-                        <div class="item-name">Buddha</div>
-                        <div class="item-price">Price: <span>1.6k</span></div>
-                        <div class="item-value">Value: <span>V:1,600,000</span></div>
-                    </div>
-                    <div class="trade-item-card" data-item-id="love" data-category="physical">
-                        <div class="item-icon" style="background-color: #FF69B4;">
-                            <i class="fas fa-heart"></i>
-                        </div>
-                        <div class="item-name">Love</div>
-                        <div class="item-price">Price: <span>1.7k</span></div>
-                        <div class="item-value">Value: <span>V:1,700,000</span></div>
-                    </div>
-                    <div class="trade-item-card" data-item-id="creation" data-category="physical">
-                        <div class="item-icon" style="background-color: #1E90FF;">
-                            <i class="fas fa-magic"></i>
-                        </div>
-                        <div class="item-name">Creation</div>
-                        <div class="item-price">Price: <span>1.8k</span></div>
-                        <div class="item-value">Value: <span>V:1,800,000</span></div>
-                    </div>
-                    <div class="trade-item-card" data-item-id="spider" data-category="physical">
-                        <div class="item-icon" style="background-color: #4B0082;">
-                            <i class="fas fa-spider"></i>
-                        </div>
-                        <div class="item-name">Spider</div>
-                        <div class="item-price">Price: <span>1.9k</span></div>
-                        <div class="item-value">Value: <span>V:1,900,000</span></div>
-                    </div>
-                    <div class="trade-item-card" data-item-id="sound" data-category="physical">
-                        <div class="item-icon" style="background-color: #00CED1;">
-                            <i class="fas fa-volume-up"></i>
-                        </div>
-                        <div class="item-name">Sound</div>
-                        <div class="item-price">Price: <span>2k</span></div>
-                        <div class="item-value">Value: <span>V:2,000,000</span></div>
-                    </div>
-                    <div class="trade-item-card" data-item-id="phoenix" data-category="physical">
-                        <div class="item-icon" style="background-color: #FFD700;">
-                            <i class="fas fa-fire-alt"></i>
-                        </div>
-                        <div class="item-name">Phoenix</div>
-                        <div class="item-price">Price: <span>2.1k</span></div>
-                        <div class="item-value">Value: <span>V:2,100,000</span></div>
-                    </div>
-                    <!-- Add more items for other categories as needed -->
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <footer class="main-footer">
-        <div class="container">
-            <p>&copy; 2024 Shinigami Realm Clan. All Rights Reserved.</p>
-        </div>
-    </footer>
-
-    <!-- ADDED type="module" -->
     <script src="js/script.js" type="module"></script>
 </body>
 </html>

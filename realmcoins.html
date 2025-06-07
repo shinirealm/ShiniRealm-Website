@@ -1,4 +1,4 @@
-<!-- realmcoins.html - UPDATED -->
+<!-- realmcoins.html - UPDATED (UI & Navigation Fix) -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,29 +7,7 @@
     <title>ShiniRealm - Realm Coins</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="[https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css](https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css)">
-    <!-- ADDED type="module" for the inline script to ensure window.firebase is available -->
-    <script type="module">
-        // CLIENT-SIDE REDIRECTION SCRIPT FOR AUTHENTICATION
-        const currentPage = window.location.pathname.split('/').pop();
-        const restrictedPages = [
-            'index.html', 'bloxfruits.html', 'growagarden.html',
-            'giveaways.html', 'bulletins.html', 'tradecalculator.html',
-            'privateservers.html', 'claninfo.html', 'realmcoins.html',
-            'myprofile.html', 'chat.html'
-        ];
-        if (restrictedPages.includes(currentPage)) {
-            setTimeout(() => {
-                const auth = window.firebase && window.firebase.auth ? window.firebase.auth : null;
-                const user = auth ? auth.currentUser : null;
-                if (!user || !user.emailVerified) {
-                    if (currentPage !== 'login.html') {
-                        console.log('Redirecting to login: User not authenticated or email not verified.');
-                        window.location.href = 'login.html?redirect=' + encodeURIComponent(currentPage);
-                    }
-                }
-            }, 500);
-        }
-    </script>
+    <!-- REMOVED CLIENT-SIDE REDIRECTION SCRIPT FROM HEAD -->
 </head>
 <body>
     <header class="main-header">
@@ -47,6 +25,8 @@
                     <li><a href="tradecalculator.html">Trade Calculator</a></li>
                     <li><a href="privateservers.html">Private Servers</a></li>
                     <li><a href="claninfo.html">Shinigami Realm Info</a></li>
+                    <!-- NEW: My Profile as a main navigation link -->
+                    <li><a href="myprofile.html">My Profile</a></li>
                 </ul>
             </nav>
             <!-- Header Right Section: Search, User Icons, Realm Coins, Login -->
@@ -56,10 +36,7 @@
                     <i class="fas fa-search search-icon"></i>
                 </div>
                 <div class="header-icons">
-                    <a href="myprofile.html" class="profile-link" id="headerProfileLink" style="display: none;">
-                        <img src="[https://placehold.co/35x35/007bff/ffffff?text=U](https://placehold.co/35x35/007bff/ffffff?text=U)" alt="Profile" class="profile-picture">
-                        <span class="display-name" id="headerDisplayName">Guest</span>
-                    </a>
+                    <!-- Notification and Chat icons are now always visible here -->
                     <i class="fas fa-bell header-icon"></i>
                     <a href="chat.html"><i class="fas fa-comments header-icon"></i></a>
                 </div>
@@ -91,7 +68,7 @@
                     <h3>Successful Trade</h3>
                     <p>Earn <span style="color: var(--realm-coin-color); font-weight: bold;">500</span> Realm Coins for every successful trade you complete!</p>
                 </div>
-                <div class="earning-method-card animate-pop-in-delay-3">
+                <div classing class="earning-method-card animate-pop-in-delay-3">
                     <div class="method-icon"><i class="fas fa-user-plus"></i></div>
                     <h3>Successful Referral</h3>
                     <p>Get <span style="color: var(--realm-coin-color); font-weight: bold;">1000</span> Realm Coins for every successful referral you make to Shinigami Realm!</p>
@@ -136,7 +113,6 @@
         </div>
     </footer>
 
-    <!-- ADDED type="module" -->
     <script src="js/script.js" type="module"></script>
 </body>
 </html>
