@@ -1,0 +1,142 @@
+<!-- realmcoins.html - UPDATED -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShiniRealm - Realm Coins</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="[https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css](https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css)">
+    <!-- ADDED type="module" for the inline script to ensure window.firebase is available -->
+    <script type="module">
+        // CLIENT-SIDE REDIRECTION SCRIPT FOR AUTHENTICATION
+        const currentPage = window.location.pathname.split('/').pop();
+        const restrictedPages = [
+            'index.html', 'bloxfruits.html', 'growagarden.html',
+            'giveaways.html', 'bulletins.html', 'tradecalculator.html',
+            'privateservers.html', 'claninfo.html', 'realmcoins.html',
+            'myprofile.html', 'chat.html'
+        ];
+        if (restrictedPages.includes(currentPage)) {
+            setTimeout(() => {
+                const auth = window.firebase && window.firebase.auth ? window.firebase.auth : null;
+                const user = auth ? auth.currentUser : null;
+                if (!user || !user.emailVerified) {
+                    if (currentPage !== 'login.html') {
+                        console.log('Redirecting to login: User not authenticated or email not verified.');
+                        window.location.href = 'login.html?redirect=' + encodeURIComponent(currentPage);
+                    }
+                }
+            }, 500);
+        }
+    </script>
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">ShiniRealm</a>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="bloxfruits.html">Blox Fruits</a></li>
+                    <li><a href="growagarden.html">Grow a Garden</a></li>
+                    <li><a href="giveaways.html">Giveaways</a></li>
+                    <li><a href="bulletins.html">Bulletins</a></li>
+                    <li><a href="tradecalculator.html">Trade Calculator</a></li>
+                    <li><a href="privateservers.html">Private Servers</a></li>
+                    <li><a href="claninfo.html">Shinigami Realm Info</a></li>
+                </ul>
+            </nav>
+            <!-- Header Right Section: Search, User Icons, Realm Coins, Login -->
+            <div class="header-right">
+                <div class="search-bar">
+                    <input type="text" placeholder="Search user...">
+                    <i class="fas fa-search search-icon"></i>
+                </div>
+                <div class="header-icons">
+                    <a href="myprofile.html" class="profile-link" id="headerProfileLink" style="display: none;">
+                        <img src="[https://placehold.co/35x35/007bff/ffffff?text=U](https://placehold.co/35x35/007bff/ffffff?text=U)" alt="Profile" class="profile-picture">
+                        <span class="display-name" id="headerDisplayName">Guest</span>
+                    </a>
+                    <i class="fas fa-bell header-icon"></i>
+                    <a href="chat.html"><i class="fas fa-comments header-icon"></i></a>
+                </div>
+                <a href="realmcoins.html" class="realm-coins-display">
+                    <i class="fas fa-gem coin-icon"></i>
+                    <span class="balance">0</span>
+                </a>
+                <button class="header-login-btn">Login</button>
+            </div>
+            <button class="menu-toggle" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <main class="main-content container">
+        <h1 class="realm-coins-header-balance animate-fade-in">You have <span class="balance">0</span> Realm Coins!</h1>
+
+        <section class="content-section animate-fade-in" style="animation-delay: 0.5s;">
+            <h2 class="animate-slide-right">Ways to Earn Realm Coins</h2>
+            <div class="earn-methods-grid">
+                <div class="earning-method-card animate-pop-in-delay-1">
+                    <div class="method-icon"><i class="fas fa-calendar-check"></i></div>
+                    <h3>Daily Login</h3>
+                    <p>Claim <span style="color: var(--realm-coin-color); font-weight: bold;">100</span> Realm Coins everyday for visiting ShiniRealm!</p>
+                </div>
+                <div class="earning-method-card animate-pop-in-delay-2">
+                    <div class="method-icon"><i class="fas fa-handshake"></i></div>
+                    <h3>Successful Trade</h3>
+                    <p>Earn <span style="color: var(--realm-coin-color); font-weight: bold;">500</span> Realm Coins for every successful trade you complete!</p>
+                </div>
+                <div class="earning-method-card animate-pop-in-delay-3">
+                    <div class="method-icon"><i class="fas fa-user-plus"></i></div>
+                    <h3>Successful Referral</h3>
+                    <p>Get <span style="color: var(--realm-coin-color); font-weight: bold;">1000</span> Realm Coins for every successful referral you make to Shinigami Realm!</p>
+                </div>
+                <div class="earning-method-card animate-pop-in-delay-4">
+                    <div class="method-icon"><i class="fas fa-clock"></i></div>
+                    <h3>Status Earn</h3>
+                    <p>Earn <span style="color: var(--realm-coin-color); font-weight: bold;">20</span> Realm Coins for every 5 minutes stayed on ShiniRealm (any page).</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="claim-timer-section content-section animate-fade-in" style="animation-delay: 1.0s;">
+            <h2 class="animate-slide-right">Time Left to Claim Your Daily Realm Coins</h2>
+            <div class="countdown-timer-display" id="dailyClaimCountdown">0:00:00</div>
+            <button class="claim-button disabled" id="claimDailyCoinsButton" disabled>Claim Your Daily Realm Coins</button>
+            <p class="claim-instructions">Stay on ShiniRealm (any page) for 5 minutes to earn more!</p>
+        </section>
+
+        <section class="what-can-do-section content-section animate-fade-in" style="animation-delay: 1.5s;">
+            <h2 class="animate-slide-right">What Can I Do With Realm Coins?</h2>
+            <div class="what-can-do-grid">
+                <div class="what-can-do-card animate-fade-in-delay-1">
+                    <h3>Enter Daily Giveaways</h3>
+                    <p>Use Realm Coins to enter our daily giveaways and increase your chances of winning rare items! We always post proof of our winners, so join now for an exciting gaming experience!</p>
+                </div>
+                <div class="what-can-do-card animate-fade-in-delay-2">
+                    <h3>Buy Slots for Listing Trade</h3>
+                    <p>You can use Realm Coins to acquire additional slots for listing your trades on our Trade Hub, giving you more flexibility.</p>
+                </div>
+                <div class="what-can-do-card animate-fade-in-delay-3">
+                    <h3>Unlock Premium Guides</h3>
+                    <p>Access exclusive, in-depth guides and advanced strategies for Blox Fruits and Grow a Garden that are only available to top Shinigami Realm members with Realm Coins.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <p>&copy; 2024 Shinigami Realm Clan. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- ADDED type="module" -->
+    <script src="js/script.js" type="module"></script>
+</body>
+</html>

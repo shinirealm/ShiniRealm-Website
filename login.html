@@ -1,0 +1,90 @@
+<!-- login.html - UPDATED (Authentication Page) -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShiniRealm - Login / Sign Up</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- No client-side redirect here to prevent infinite loop on login page -->
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">ShiniRealm</a>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="bloxfruits.html">Blox Fruits</a></li>
+                    <li><a href="growagarden.html">Grow a Garden</a></li>
+                    <li><a href="giveaways.html">Giveaways</a></li>
+                    <li><a href="bulletins.html">Bulletins</a></li>
+                    <li><a href="tradecalculator.html">Trade Calculator</a></li>
+                    <li><a href="privateservers.html">Private Servers</a></li>
+                    <li><a href="claninfo.html">Shinigami Realm Info</a></li>
+                </ul>
+            </nav>
+            <!-- Header Right Section: Search, User Icons, Realm Coins, Login -->
+            <div class="header-right">
+                <div class="search-bar">
+                    <input type="text" placeholder="Search user...">
+                    <i class="fas fa-search search-icon"></i>
+                </div>
+                <div class="header-icons">
+                    <!-- Profile Link (hidden, will be shown by JS on login) -->
+                    <a href="myprofile.html" class="profile-link" id="headerProfileLink" style="display: none;">
+                        <img src="https://placehold.co/35x35/007bff/ffffff?text=U" alt="Profile" class="profile-picture">
+                        <span class="display-name" id="headerDisplayName">Guest</span>
+                    </a>
+                    <i class="fas fa-bell header-icon"></i>
+                    <a href="chat.html"><i class="fas fa-comments header-icon"></i></a>
+                </div>
+                <a href="realmcoins.html" class="realm-coins-display">
+                    <i class="fas fa-gem coin-icon"></i>
+                    <span class="balance">0</span>
+                </a>
+                <button class="header-login-btn">Login</button>
+            </div>
+            <button class="menu-toggle" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <main class="main-content auth-container">
+        <div class="auth-form animate-fade-in" id="authForm">
+            <h2>Login</h2>
+            <div id="authMessage" class="auth-message" style="display: none;"></div>
+
+            <form>
+                <label for="authEmail">Email:</label>
+                <input type="email" id="authEmail" name="email" required>
+
+                <label for="authPassword">Password:</label>
+                <input type="password" id="authPassword" name="password" required>
+
+                <button type="submit" class="cta-button">Login</button>
+            </form>
+
+            <div class="social-signin-divider">OR</div>
+
+            <button type="button" class="google-signin-btn" id="googleSignInBtn">
+                <i class="fab fa-google"></i> Sign In with Google
+            </button>
+            <!-- Removed temporary inline script -->
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <p>&copy; 2024 Shinigami Realm Clan. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- ADDED type="module" -->
+    <script src="js/script.js" type="module"></script>
+</body>
+</html>

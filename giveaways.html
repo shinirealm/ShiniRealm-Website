@@ -1,0 +1,200 @@
+<!-- giveaways.html - REDESIGNED to match 1st SS -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShiniRealm - Giveaways</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script>
+        // CLIENT-SIDE REDIRECTION SCRIPT FOR AUTHENTICATION
+        const currentPage = window.location.pathname.split('/').pop();
+        const restrictedPages = [
+            'index.html', 'bloxfruits.html', 'growagarden.html',
+            'giveaways.html', 'bulletins.html', 'tradecalculator.html',
+            'privateservers.html', 'claninfo.html', 'realmcoins.html',
+            'myprofile.html', 'chat.html'
+        ];
+        if (restrictedPages.includes(currentPage)) {
+            setTimeout(() => {
+                const auth = window.firebase && window.firebase.auth ? window.firebase.auth : null;
+                const user = auth ? auth.currentUser : null;
+                if (!user || !user.emailVerified) {
+                    if (currentPage !== 'login.html') {
+                        console.log('Redirecting to login: User not authenticated or email not verified.');
+                        window.location.href = 'login.html?redirect=' + encodeURIComponent(currentPage);
+                    }
+                }
+            }, 500);
+        }
+    </script>
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">ShiniRealm</a>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="bloxfruits.html">Blox Fruits</a></li>
+                    <li><a href="growagarden.html">Grow a Garden</a></li>
+                    <li><a href="giveaways.html">Giveaways</a></li>
+                    <li><a href="bulletins.html">Bulletins</a></li>
+                    <li><a href="tradecalculator.html">Trade Calculator</a></li>
+                    <li><a href="privateservers.html">Private Servers</a></li>
+                    <li><a href="claninfo.html">Shinigami Realm Info</a></li>
+                </ul>
+            </nav>
+            <!-- Header Right Section: Search, User Icons, Realm Coins, Login -->
+            <div class="header-right">
+                <div class="search-bar">
+                    <input type="text" placeholder="Search user...">
+                    <i class="fas fa-search search-icon"></i>
+                </div>
+                <div class="header-icons">
+                    <a href="myprofile.html" class="profile-link" id="headerProfileLink" style="display: none;">
+                        <img src="https://placehold.co/35x35/007bff/ffffff?text=U" alt="Profile" class="profile-picture">
+                        <span class="display-name" id="headerDisplayName">Guest</span>
+                    </a>
+                    <i class="fas fa-bell header-icon"></i>
+                    <a href="chat.html"><i class="fas fa-comments header-icon"></i></a>
+                </div>
+                <a href="realmcoins.html" class="realm-coins-display">
+                    <i class="fas fa-gem coin-icon"></i>
+                    <span class="balance">0</span>
+                </a>
+                <button class="header-login-btn">Login</button>
+            </div>
+            <button class="menu-toggle" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <main class="main-content container">
+        <h1>Shinigami Realm Giveaways</h1>
+
+        <section class="giveaway-tabs-section content-section animate-fade-in">
+            <div class="giveaway-tabs">
+                <button class="giveaway-tab-button active" data-tab="active-giveaways">Giveaways</button>
+                <button class="giveaway-tab-button" data-tab="previous-winners">Previous Winners</button>
+            </div>
+
+            <div class="giveaway-alert animate-slide-up" style="animation-delay: 0.8s;">
+                Get More Realm Coins By Participating in Giveaways, Referring Friends, and More! Visit the <a href="realmcoins.html">Realm Coins Page</a> for details!
+            </div>
+
+            <div class="giveaway-content-panel active" id="active-giveaways-panel">
+                <div class="giveaway-filters">
+                    <button class="filter-button active" data-filter="all"><i class="fas fa-filter"></i> All</button>
+                    <button class="filter-button" data-filter="bloxfruits"><i class="fas fa-bahai"></i> Blox Fruits</button>
+                    <button class="filter-button" data-filter="growagarden"><i class="fas fa-leaf"></i> Grow a Garden</button>
+                    <button class="filter-button" data-filter="other"><i class="fas fa-cube"></i> Other</button>
+                </div>
+
+                <div class="giveaway-card-grid">
+                    <!-- Giveaway Card 1 (mimics screenshot) -->
+                    <div class="giveaway-card animate-fade-in-delay-1" data-game="bloxfruits">
+                        <div class="top-right-info">
+                            <i class="fas fa-ticket-alt"></i> 10
+                        </div>
+                        <div class="item-icon" style="background-color: #f78d91;"> <!-- Placeholder for Candy Blossom image -->
+                            <i class="fas fa-candy-cane"></i>
+                        </div>
+                        <h3>Candy Blossom 204B</h3>
+                        <p class="ends-in">Ends in</p>
+                        <p class="countdown">0d 19h 26m 48s</p>
+                        <p class="hosted-by">Hosted by: ShinigamiRealm</p>
+                        <div class="tickets-info">
+                            Participants: <span>15</span> | Tickets You Own: <span class="num-tickets">0</span>
+                        </div>
+                        <button class="cta-button small">Enter Giveaway</button>
+                    </div>
+
+                    <!-- Giveaway Card 2 (mimics screenshot) -->
+                    <div class="giveaway-card animate-fade-in-delay-2" data-game="bloxfruits">
+                        <div class="top-right-info">
+                            <i class="fas fa-ticket-alt"></i> 10
+                        </div>
+                        <div class="item-icon" style="background-color: #6a1b9a;"> <!-- Placeholder for another candy -->
+                            <i class="fas fa-lollipop"></i>
+                        </div>
+                        <h3>Candy Blossom 204B</h3>
+                        <p class="ends-in">Ends in</p>
+                        <p class="countdown">0d 17h 19m 48s</p>
+                        <p class="hosted-by">Hosted by: ShinigamiRealm</p>
+                        <div class="tickets-info">
+                            Participants: <span>10</span> | Tickets You Own: <span class="num-tickets">0</span>
+                        </div>
+                        <button class="cta-button small">Enter Giveaway</button>
+                    </div>
+
+                    <!-- Example Blox Fruits Giveaway -->
+                    <div class="giveaway-card animate-fade-in-delay-3" data-game="bloxfruits">
+                        <div class="top-right-info">
+                            <i class="fas fa-ticket-alt"></i> 50
+                        </div>
+                        <div class="item-icon" style="background-color: #8A2BE2;"> <!-- Purple for Blox Fruits -->
+                            <i class="fas fa-dragon"></i>
+                        </div>
+                        <h3>Permanent Dragon Fruit!</h3>
+                        <p class="ends-in">Ends in</p>
+                        <p class="countdown">5d 10h 30m 00s</p>
+                        <p class="hosted-by">Hosted by: ShinigamiRealm Leadership</p>
+                        <div class="tickets-info">
+                            Participants: <span>120</span> | Tickets You Own: <span class="num-tickets">3</span>
+                        </div>
+                        <button class="cta-button small">Enter Giveaway</button>
+                    </div>
+
+                    <!-- Example Grow a Garden Giveaway -->
+                    <div class="giveaway-card animate-fade-in-delay-4" data-game="growagarden">
+                        <div class="top-right-info">
+                            <i class="fas fa-ticket-alt"></i> 20
+                        </div>
+                        <div class="item-icon" style="background-color: #4CAF50;"> <!-- Green for Grow a Garden -->
+                            <i class="fas fa-tree"></i>
+                        </div>
+                        <h3>Mythic Seed Bundle!</h3>
+                        <p class="ends-in">Ends in</p>
+                        <p class="countdown">3d 05h 00m 00s</p>
+                        <p class="hosted-by">Hosted by: Clan Gardener</p>
+                        <div class="tickets-info">
+                            Participants: <span>80</span> | Tickets You Own: <span class="num-tickets">1</span>
+                        </div>
+                        <button class="cta-button small">Enter Giveaway</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="giveaway-content-panel" id="previous-winners-panel" style="display: none;">
+                <div class="card-grid">
+                    <div class="card animate-fade-in-delay-1">
+                        <h3>Past Winner: Perm Buddha Fruit</h3>
+                        <p>Winner: <strong style="color: var(--realm-coin-color);">[Winner Username 1]</strong></p>
+                        <p>Date: May 28, 2025</p>
+                        <p><em>Proof available on Discord #giveaway-proof channel.</em></p>
+                    </div>
+                    <div class="card animate-fade-in-delay-2">
+                        <h3>Past Winner: Legendary Pet</h3>
+                        <p>Winner: <strong style="color: var(--realm-coin-color);">[Winner Username 2]</strong></p>
+                        <p>Date: May 15, 2025</p>
+                        <p><em>Proof available on Discord #giveaway-proof channel.</em></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <p>&copy; 2024 Shinigami Realm Clan. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

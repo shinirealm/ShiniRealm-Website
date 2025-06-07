@@ -1,0 +1,108 @@
+<!-- chat.html - NEW FILE (Chat Page) -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShiniRealm - Clan Chat</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script>
+        // CLIENT-SIDE REDIRECTION SCRIPT FOR AUTHENTICATION
+        const currentPage = window.location.pathname.split('/').pop();
+        const restrictedPages = [
+            'index.html', 'bloxfruits.html', 'growagarden.html',
+            'giveaways.html', 'bulletins.html', 'tradecalculator.html',
+            'privateservers.html', 'claninfo.html', 'realmcoins.html',
+            'myprofile.html', 'chat.html'
+        ];
+        if (restrictedPages.includes(currentPage)) {
+            setTimeout(() => {
+                const auth = window.firebase && window.firebase.auth ? window.firebase.auth : null;
+                const user = auth ? auth.currentUser : null;
+                if (!user || !user.emailVerified) {
+                    if (currentPage !== 'login.html') {
+                        console.log('Redirecting to login: User not authenticated or email not verified.');
+                        window.location.href = 'login.html?redirect=' + encodeURIComponent(currentPage);
+                    }
+                }
+            }, 500);
+        }
+    </script>
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">ShiniRealm</a>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="bloxfruits.html">Blox Fruits</a></li>
+                    <li><a href="growagarden.html">Grow a Garden</a></li>
+                    <li><a href="giveaways.html">Giveaways</a></li>
+                    <li><a href="bulletins.html">Bulletins</a></li>
+                    <li><a href="tradecalculator.html">Trade Calculator</a></li>
+                    <li><a href="privateservers.html">Private Servers</a></li>
+                    <li><a href="claninfo.html">Shinigami Realm Info</a></li>
+                </ul>
+            </nav>
+            <!-- Header Right Section: Search, User Icons, Realm Coins, Login -->
+            <div class="header-right">
+                <div class="search-bar">
+                    <input type="text" placeholder="Search user...">
+                    <i class="fas fa-search search-icon"></i>
+                </div>
+                <div class="header-icons">
+                    <a href="myprofile.html" class="profile-link" id="headerProfileLink" style="display: none;">
+                        <img src="https://placehold.co/35x35/007bff/ffffff?text=U" alt="Profile" class="profile-picture">
+                        <span class="display-name" id="headerDisplayName">Guest</span>
+                    </a>
+                    <i class="fas fa-bell header-icon"></i>
+                    <a href="chat.html"><i class="fas fa-comments header-icon"></i></a>
+                </div>
+                <a href="realmcoins.html" class="realm-coins-display">
+                    <i class="fas fa-gem coin-icon"></i>
+                    <span class="balance">0</span>
+                </a>
+                <button class="header-login-btn">Login</button>
+            </div>
+            <button class="menu-toggle" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <main class="main-content container">
+        <div class="chat-container animate-fade-in">
+            <div class="chat-users-list" id="chatUsersList">
+                <h3>Online Members</h3>
+                <!-- User list will be populated by JavaScript -->
+            </div>
+            <div class="chat-main">
+                <div class="chat-messages" id="chatMessages">
+                    <!-- Chat messages will be populated by JavaScript -->
+                    <div class="chat-message self">
+                        <span class="sender-name">You</span>
+                        <p class="message-text">Welcome to the Shinigami Realm Chat!</p>
+                        <span class="timestamp">Just now</span>
+                    </div>
+                </div>
+                <div class="chat-input-area">
+                    <input type="text" id="chatMessageInput" placeholder="Type your message...">
+                    <button id="sendMessageBtn"><i class="fas fa-paper-plane"></i> Send</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <p>&copy; 2024 Shinigami Realm Clan. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!-- growagarden.html - UPDATED -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShiniRealm - Grow a Garden</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="[https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css](https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css)">
+    <!-- ADDED type="module" for the inline script to ensure window.firebase is available -->
+    <script type="module">
+        // CLIENT-SIDE REDIRECTION SCRIPT FOR AUTHENTICATION
+        const currentPage = window.location.pathname.split('/').pop();
+        const restrictedPages = [
+            'index.html', 'bloxfruits.html', 'growagarden.html',
+            'giveaways.html', 'bulletins.html', 'tradecalculator.html',
+            'privateservers.html', 'claninfo.html', 'realmcoins.html',
+            'myprofile.html', 'chat.html'
+        ];
+        if (restrictedPages.includes(currentPage)) {
+            setTimeout(() => {
+                const auth = window.firebase && window.firebase.auth ? window.firebase.auth : null;
+                const user = auth ? auth.currentUser : null;
+                if (!user || !user.emailVerified) {
+                    if (currentPage !== 'login.html') {
+                        console.log('Redirecting to login: User not authenticated or email not verified.');
+                        window.location.href = 'login.html?redirect=' + encodeURIComponent(currentPage);
+                    }
+                }
+            }, 500);
+        }
+    </script>
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">ShiniRealm</a>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="bloxfruits.html">Blox Fruits</a></li>
+                    <li><a href="growagarden.html">Grow a Garden</a></li>
+                    <li><a href="giveaways.html">Giveaways</a></li>
+                    <li><a href="bulletins.html">Bulletins</a></li>
+                    <li><a href="tradecalculator.html">Trade Calculator</a></li>
+                    <li><a href="privateservers.html">Private Servers</a></li>
+                    <li><a href="claninfo.html">Shinigami Realm Info</a></li>
+                </ul>
+            </nav>
+            <!-- Header Right Section: Search, User Icons, Realm Coins, Login -->
+            <div class="header-right">
+                <div class="search-bar">
+                    <input type="text" placeholder="Search user...">
+                    <i class="fas fa-search search-icon"></i>
+                </div>
+                <div class="header-icons">
+                    <a href="myprofile.html" class="profile-link" id="headerProfileLink" style="display: none;">
+                        <img src="[https://placehold.co/35x35/007bff/ffffff?text=U](https://placehold.co/35x35/007bff/ffffff?text=U)" alt="Profile" class="profile-picture">
+                        <span class="display-name" id="headerDisplayName">Guest</span>
+                    </a>
+                    <i class="fas fa-bell header-icon"></i>
+                    <a href="chat.html"><i class="fas fa-comments header-icon"></i></a>
+                </div>
+                <a href="realmcoins.html" class="realm-coins-display">
+                    <i class="fas fa-gem coin-icon"></i>
+                    <span class="balance">0</span>
+                </a>
+                <button class="header-login-btn">Login</button>
+            </div>
+            <button class="menu-toggle" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <main class="main-content container">
+        <h1>Grow a Garden - Shinigami Realm Farming & Trading</h1>
+
+        <section id="tips" class="content-section animate-fade-in">
+            <h2 class="animate-slide-right">Grow a Garden Tips & Tricks</h2>
+            <div class="card-grid">
+                <div class="card animate-fade-in-delay-1">
+                    <h3>Optimal Layouts for Max Yields</h3>
+                    <p>Learn how to arrange your garden plots for maximum efficiency and resource generation. Includes diagrams!</p>
+                    <a href="#" class="card-link">View Layouts</a>
+                </div>
+                <div class="card animate-fade-in-delay-2">
+                    <h3>Rare Seed Farming Strategies</h3>
+                    <p>Struggling to find those elusive rare seeds? Our Shinigami Realm's proven methods for acquiring them faster.</p>
+                    <a href="#" class="card-link">Get Tips</a>
+                </div>
+                <div class="card animate-fade-in-delay-3">
+                    <h3>Shinigami Realm Trading Best Practices</h3>
+                    <p>Guidelines for fair and efficient trading within the Shinigami Realm clan. Ensure everyone benefits!</p>
+                    <a href="#" class="card-link">Read Rules</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section animate-fade-in" style="animation-delay: 0.8s;">
+            <h2 class="animate-slide-right">Shinigami Realm Garden Showcase</h2>
+            <div class="card">
+                <h3>Member's Masterpiece: Elderwood Farm</h3>
+                <p>Check out [Clan Member's Name]'s incredible Elderwood Farm layout, producing consistent high-value resources!</p>
+                <p><em>(Image/Screenshot placeholder here)</em></p>
+                <a href="#" class="card-link">View Showcase</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <p>&copy; 2024 Shinigami Realm Clan. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- ADDED type="module" -->
+    <script src="js/script.js" type="module"></script>
+</body>
+</html>

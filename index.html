@@ -1,0 +1,163 @@
+<!-- index.html (Homepage) - UPDATED -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShiniRealm - Clan Home</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="[https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css](https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css)">
+    <!-- ADDED type="module" for the inline script to ensure window.firebase is available -->
+    <script type="module">
+        // CLIENT-SIDE REDIRECTION SCRIPT FOR AUTHENTICATION
+        // This script will run on every page load to enforce authentication and email verification.
+        // It should be placed as high as possible in the <head> to run before page content loads.
+        const currentPage = window.location.pathname.split('/').pop();
+        const restrictedPages = [
+            'index.html', 'bloxfruits.html', 'growagarden.html',
+            'giveaways.html', 'bulletins.html', 'tradecalculator.html',
+            'privateservers.html', 'claninfo.html', 'realmcoins.html',
+            'myprofile.html', 'chat.html' // All pages except login
+        ];
+
+        // Only enforce for restricted pages
+        if (restrictedPages.includes(currentPage)) {
+            // Check for Firebase Auth state after a small delay to allow Firebase to initialize
+            // In a real application, this would ideally be done via Firebase's onAuthStateChanged
+            // directly in script.js and managed through a global state. For simple HTML,
+            // this client-side check is a quick way to enforce.
+            setTimeout(() => {
+                const auth = window.firebase && window.firebase.auth ? window.firebase.auth : null;
+                const user = auth ? auth.currentUser : null;
+
+                if (!user || !user.emailVerified) {
+                    if (currentPage !== 'login.html') { // Avoid infinite loop if already on login page
+                        console.log('Redirecting to login: User not authenticated or email not verified.');
+                        window.location.href = 'login.html?redirect=' + encodeURIComponent(currentPage);
+                    }
+                }
+            }, 500); // Small delay to allow Firebase to attempt auto-login
+        }
+    </script>
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">ShiniRealm</a>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="bloxfruits.html">Blox Fruits</a></li>
+                    <li><a href="growagarden.html">Grow a Garden</a></li>
+                    <li><a href="giveaways.html">Giveaways</a></li>
+                    <li><a href="bulletins.html">Bulletins</a></li>
+                    <li><a href="tradecalculator.html">Trade Calculator</a></li>
+                    <li><a href="privateservers.html">Private Servers</a></li>
+                    <li><a href="claninfo.html">Shinigami Realm Info</a></li>
+                </ul>
+            </nav>
+            <!-- Header Right Section: Search, User Icons, Realm Coins, Login -->
+            <div class="header-right">
+                <div class="search-bar">
+                    <input type="text" placeholder="Search user...">
+                    <i class="fas fa-search search-icon"></i>
+                </div>
+                <div class="header-icons">
+                    <!-- Profile Link - Initially hidden, shown by JS when logged in -->
+                    <a href="myprofile.html" class="profile-link" id="headerProfileLink" style="display: none;">
+                        <img src="[https://placehold.co/35x35/007bff/ffffff?text=U](https://placehold.co/35x35/007bff/ffffff?text=U)" alt="Profile" class="profile-picture">
+                        <span class="display-name" id="headerDisplayName">Guest</span>
+                    </a>
+                    <i class="fas fa-bell header-icon"></i> <!-- Notification icon -->
+                    <a href="chat.html"><i class="fas fa-comments header-icon"></i></a> <!-- Chat icon now links to chat.html -->
+                </div>
+                <!-- Realm Coins Balance - Clickable to Realm Coins page -->
+                <a href="realmcoins.html" class="realm-coins-display">
+                    <i class="fas fa-gem coin-icon"></i> <!-- Coin icon -->
+                    <span class="balance">0</span> <!-- Placeholder balance -->
+                </a>
+                <button class="header-login-btn">Login</button>
+            </div>
+            <button class="menu-toggle" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <main class="main-content container">
+        <section class="hero-section animate-pop-in">
+            <h1 class="animate-fade-in">Shinigami Realm</h1>
+            <p class="tagline animate-slide-up">Where Our Clan Trades to Win & Explores New Realms!</p>
+            <p class="tagline animate-slide-up" style="animation-delay: 0.4s;">Master Blox Fruits, Cultivate Grow a Garden, and Earn Rewards Together!</p>
+
+            <div class="hero-buttons">
+                <a href="claninfo.html" class="cta-button animate-pop-in-delay-1" style="animation-delay: 0.6s;">
+                    <i class="fas fa-users"></i> Clan Resources
+                </a>
+                <a href="bloxfruits.html" class="cta-button animate-pop-in-delay-2" style="animation-delay: 0.8s;">
+                    <i class="fas fa-gamepad"></i> Game Guides
+                </a>
+            </div>
+        </section>
+
+        <section class="clan-stats-section content-section animate-fade-in" style="animation-delay: 1.0s;">
+            <h2 class="animate-slide-right">Shinigami Realm Network</h2>
+            <div class="stats-grid">
+                <div class="stat-item animate-pop-in-delay-1" style="animation-delay: 1.2s;">
+                    <div class="number">58+</div>
+                    <div class="label">Active Clan Members</div>
+                </div>
+                <div class="stat-item animate-pop-in-delay-2" style="animation-delay: 1.4s;">
+                    <div class="number">310+</div>
+                    <div class="label">Total Clan Events</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="featured-content content-section animate-fade-in" style="animation-delay: 1.6s;">
+            <h2 class="animate-slide-right">Latest Shinigami Realm Updates & Highlights</h2>
+            <div class="card-grid">
+                <div class="card animate-fade-in-delay-1" style="animation-delay: 1.8s;">
+                    <h3>Blox Fruits: Upcoming Raid Event!</h3>
+                    <p>Prepare yourselves, warriors! We're organizing a grand raid on Saturday. Check the <a href="bloxfruits.html" class="card-link">Blox Fruits page</a> for details and sign-up times.</p>
+                    <a href="bloxfruits.html" class="cta-button small">View Details</a>
+                </div>
+                <div class="card animate-fade-in-delay-2" style="animation-delay: 2.0s;">
+                    <h3>Grow a Garden: Efficient Farm Layout</h3>
+                    <p>Our expert gardeners share their top tips for maximizing yields in Grow a Garden. Learn about the best layouts and planting cycles!</p>
+                    <a href="growagarden.html" class="cta-button small">Read Guide</a>
+                </div>
+                <div class="card animate-fade-in-delay-3" style="animation-delay: 2.2s;">
+                    <h3>Shinigami Realm Meeting Reminder</h3>
+                    <p>Don't forget our weekly clan meeting this Sunday on Discord. Important announcements and strategy discussions will take place.</p>
+                    <a href="claninfo.html" class="cta-button small">Clan Info</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="quick-links content-section animate-fade-in" style="animation-delay: 2.4s;">
+            <h2 class="animate-slide-left">Quick Links</h2>
+            <ul>
+                <li class="animate-pop-in-delay-1" style="animation-delay: 2.6s;"><a href="privateservers.html"><i class="fas fa-server"></i> Shinigami Realm Private Servers</a></li>
+                <li class="animate-pop-in-delay-2" style="animation-delay: 2.8s;"><a href="bloxfruits.html#guides"><i class="fas fa-book"></i> Blox Fruits Guides</a></li>
+                <li class="animate-pop-in-delay-3" style="animation-delay: 3.0s;"><a href="growagarden.html#tips"><i class="fas fa-seedling"></i> Grow a Garden Tips</a></li>
+                <li class="animate-pop-in-delay-4" style="animation-delay: 3.2s;"><a href="giveaways.html"><i class="fas fa-gift"></i> Clan Giveaways</a></li>
+                <li class="animate-pop-in-delay-5" style="animation-delay: 3.4s;"><a href="bulletins.html"><i class="fas fa-bullhorn"></i> Clan Bulletins</a></li>
+                <li class="animate-pop-in-delay-6" style="animation-delay: 3.6s;"><a href="tradecalculator.html"><i class="fas fa-calculator"></i> Trade Calculator</a></li>
+                <li class="animate-pop-in-delay-7" style="animation-delay: 3.8s;"><a href="realmcoins.html"><i class="fas fa-gem"></i> Realm Coins</a></li>
+            </ul>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <p>&copy; 2024 Shinigami Realm Clan. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- ADDED type="module" -->
+    <script src="js/script.js" type="module"></script>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!-- bloxfruits.html - UPDATED -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShiniRealm - Blox Fruits</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- ADDED type="module" for the inline script to ensure window.firebase is available -->
+    <script type="module">
+        // CLIENT-SIDE REDIRECTION SCRIPT FOR AUTHENTICATION
+        const currentPage = window.location.pathname.split('/').pop();
+        const restrictedPages = [
+            'index.html', 'bloxfruits.html', 'growagarden.html',
+            'giveaways.html', 'bulletins.html', 'tradecalculator.html',
+            'privateservers.html', 'claninfo.html', 'realmcoins.html',
+            'myprofile.html', 'chat.html'
+        ];
+        if (restrictedPages.includes(currentPage)) {
+            setTimeout(() => {
+                const auth = window.firebase && window.firebase.auth ? window.firebase.auth : null;
+                const user = auth ? auth.currentUser : null;
+                if (!user || !user.emailVerified) {
+                    if (currentPage !== 'login.html') {
+                        console.log('Redirecting to login: User not authenticated or email not verified.');
+                        window.location.href = 'login.html?redirect=' + encodeURIComponent(currentPage);
+                    }
+                }
+            }, 500);
+        }
+    </script>
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">ShiniRealm</a>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="bloxfruits.html">Blox Fruits</a></li>
+                    <li><a href="growagarden.html">Grow a Garden</a></li>
+                    <li><a href="giveaways.html">Giveaways</a></li>
+                    <li><a href="bulletins.html">Bulletins</a></li>
+                    <li><a href="tradecalculator.html">Trade Calculator</a></li>
+                    <li><a href="privateservers.html">Private Servers</a></li>
+                    <li><a href="claninfo.html">Shinigami Realm Info</a></li>
+                </ul>
+            </nav>
+            <!-- Header Right Section: Search, User Icons, Realm Coins, Login -->
+            <div class="header-right">
+                <div class="search-bar">
+                    <input type="text" placeholder="Search user...">
+                    <i class="fas fa-search search-icon"></i>
+                </div>
+                <div class="header-icons">
+                    <a href="myprofile.html" class="profile-link" id="headerProfileLink" style="display: none;">
+                        <img src="https://placehold.co/35x35/007bff/ffffff?text=U" alt="Profile" class="profile-picture">
+                        <span class="display-name" id="headerDisplayName">Guest</span>
+                    </a>
+                    <i class="fas fa-bell header-icon"></i>
+                    <a href="chat.html"><i class="fas fa-comments header-icon"></i></a>
+                </div>
+                <a href="realmcoins.html" class="realm-coins-display">
+                    <i class="fas fa-gem coin-icon"></i>
+                    <span class="balance">0</span>
+                </a>
+                <button class="header-login-btn">Login</button>
+            </div>
+            <button class="menu-toggle" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <main class="main-content container">
+        <h1>Blox Fruits - Shinigami Realm Strategies & Guides</h1>
+
+        <section id="guides" class="content-section animate-fade-in">
+            <h2 class="animate-slide-right">Our Top Blox Fruits Guides</h2>
+            <div class="card-grid">
+                <div class="card animate-fade-in-delay-1">
+                    <h3>Best Grinding Spots (Sea 3)</h3>
+                    <p>Discover the most efficient grinding locations for various levels in the Third Sea, optimized for Shinigami Realm's playstyle.</p>
+                    <a href="#" class="card-link">Read Guide</a>
+                </div>
+                <div class="card animate-fade-in-delay-2">
+                    <h3>Fruit Tier List for PvP & Raids</h3>
+                    <p>Shinigami Realm's updated tier list for Devil Fruits, considering their effectiveness in both player-vs-player combat and boss raids.</p>
+                    <a href="#" class="card-link">View Tier List</a>
+                </div>
+                <div class="card animate-fade-in-delay-3">
+                    <h3>Beginner's Guide to Awakened Skills</h3>
+                    <p>New to Blox Fruits? This guide covers how to awaken your skills and which ones to prioritize for maximum power.</p>
+                    <a href="#" class="card-link">Start Learning</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section animate-fade-in" style="animation-delay: 0.8s;">
+            <h2 class="animate-slide-right">Upcoming Blox Fruits Shinigami Realm Events</h2>
+            <div class="card">
+                <h3>Leviathan Hunt Prep Session</h3>
+                <p>Date: Saturday, June 7th, 2025 | Time: 7:00 PM IST</p>
+                <p>Join us to prepare for our next Leviathan hunt. We'll discuss roles, strategies, and ensure everyone has the right gear.</p>
+            </div>
+            <div class="card">
+                <h3>Buddha Raid Marathon</h3>
+                <p>Date: Sunday, June 8th, 2025 | Time: 8:00 PM - 10:00 PM IST</p>
+                <p>A continuous Buddha raid session for rapid fragment farming and leveling. Don't miss out!</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <p>&copy; 2024 Shinigami Realm Clan. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- ADDED type="module" -->
+    <script src="js/script.js" type="module"></script>
+</body>
+</html>
