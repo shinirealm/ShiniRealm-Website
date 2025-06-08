@@ -1,13 +1,11 @@
-<!-- bulletins.html - UPDATED (UI & Navigation Fix) -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ShiniRealm - Bulletins</title>
+    <title>ShiniRealm - Giveaways</title>
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="[https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css](https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css)">
-    <!-- REMOVED CLIENT-SIDE REDIRECTION SCRIPT FROM HEAD -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <header class="main-header">
@@ -25,18 +23,15 @@
                     <li><a href="tradecalculator.html">Trade Calculator</a></li>
                     <li><a href="privateservers.html">Private Servers</a></li>
                     <li><a href="claninfo.html">Shinigami Realm Info</a></li>
-                    <!-- NEW: My Profile as a main navigation link -->
                     <li><a href="myprofile.html">My Profile</a></li>
                 </ul>
             </nav>
-            <!-- Header Right Section: Search, User Icons, Realm Coins, Login -->
             <div class="header-right">
                 <div class="search-bar">
                     <input type="text" placeholder="Search user...">
                     <i class="fas fa-search search-icon"></i>
                 </div>
                 <div class="header-icons">
-                    <!-- Notification and Chat icons are now always visible here -->
                     <i class="fas fa-bell header-icon"></i>
                     <a href="chat.html"><i class="fas fa-comments header-icon"></i></a>
                 </div>
@@ -53,35 +48,39 @@
     </header>
 
     <main class="main-content container">
-        <h1>Shinigami Realm Clan Bulletins</h1>
+        <h1>Shinigami Realm Giveaways</h1>
 
-        <section class="content-section animate-fade-in">
-            <h2 class="animate-slide-right">Latest Clan Announcements</h2>
-            <div class="card-grid">
-                <div class="card animate-fade-in-delay-1">
-                    <h3>Important: New Raid Schedule!</h3>
-                    <p>Effective next week, our Blox Fruits raid schedule is shifting by an hour to accommodate more members. Check Discord for specifics.</p>
-                    <p class="note-date">Posted: June 5th, 2025</p>
+        <section class="giveaway-tabs-section content-section animate-fade-in">
+            <div class="giveaway-tabs">
+                <button class="giveaway-tab-button active" data-tab="active-giveaways">Giveaways</button>
+                <button class="giveaway-tab-button" data-tab="previous-winners">Previous Winners</button>
+            </div>
+
+            <div class="giveaway-alert animate-slide-up" style="animation-delay: 0.8s;">
+                Get More Realm Coins By Participating in Giveaways, Referring Friends, and More! Visit the <a href="realmcoins.html">Realm Coins Page</a> for details!
+            </div>
+
+            <div class="giveaway-content-panel active" id="active-giveaways-panel">
+                <div class="giveaway-filters">
+                    <button class="filter-button active" data-filter="all"><i class="fas fa-filter"></i> All</button>
+                    <button class="filter-button" data-filter="bloxfruits"><i class="fas fa-bahai"></i> Blox Fruits</button>
+                    <button class="filter-button" data-filter="growagarden"><i class="fas fa-leaf"></i> Grow a Garden</button>
+                    <button class="filter-button" data-filter="other"><i class="fas fa-cube"></i> Other</button>
                 </div>
-                <div class="card animate-fade-in-delay-2">
-                    <h3>Grow a Garden: Community Harvest Event</h3>
-                    <p>We're organizing a large-scale community harvest this Saturday! All members are encouraged to participate and share their resources.</p>
-                    <p class="note-date">Posted: June 3rd, 2025</p>
-                </div>
-                <div class="card animate-fade-in-delay-3">
-                    <h3>Officer Recruitment Drive!</h3>
-                    <p>Shinigami Realm is looking for dedicated officers to help manage clan activities. See the Discord #announcements for application details.</p>
-                    <p class="note-date">Posted: May 28th, 2025</p>
+
+                <div class="giveaway-card-grid">
+                    <div class="card">
+                        <p style="text-align: center;">Will be coming :)...</p>
+                    </div>
                 </div>
             </div>
-        </section>
 
-        <section class="content-section animate-fade-in" style="animation-delay: 0.8s;">
-            <h2 class="animate-slide-right">Archived Bulletins</h2>
-            <div class="card">
-                <h3>Spring Clean-up Event Recap (May 2025)</h3>
-                <p>Thanks to all who participated! We cleared out inactive members and welcomed new recruits.</p>
-                <p class="note-date">Archived: June 1st, 2025</p>
+            <div class="giveaway-content-panel" id="previous-winners-panel" style="display: none;">
+                <div class="card-grid">
+                    <div class="card">
+                        <p style="text-align: center;">Will be coming :)...</p>
+                    </div>
+                </div>
             </div>
         </section>
     </main>
